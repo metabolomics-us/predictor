@@ -1,11 +1,11 @@
 import wsgiserver
 from flask import Flask, url_for, jsonify
 
-from predictor.services.cleandirty import clean_dirty
+from predictor.services.cleandirty import clean_dirty, load_model
 
 app = Flask(__name__)
 app.register_blueprint(clean_dirty)
-
+load_model()
 
 @app.route("/site-map")
 def site_map():
