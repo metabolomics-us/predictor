@@ -10,7 +10,7 @@ pipeline {
       steps {
         sh '''virtualenv .venv
 source .venv/bin/activate
-cd pyspec
+cd predictor
 pip3 install -r requirements.txt'''
       }
     }
