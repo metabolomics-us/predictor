@@ -16,18 +16,12 @@ pip3 install -r requirements.txt'''
     stage('test') {
       steps {
         sh '''source .venv/bin/activate
-cd predictor
-pytest ./'''
+pytest -sss predictor'''
       }
     }
     stage('image') {
       steps {
         sh 'docker build -t eros.fiehnlab.ucdavis.edu/predictor:latest predictor'
-      }
-    }
-    stage('integration test') {
-      steps {
-        waitUntil()
       }
     }
   }
