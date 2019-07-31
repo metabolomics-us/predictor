@@ -5,6 +5,7 @@ from flask import abort, Blueprint
 from flask import request
 from pyspec.loader import Spectra
 from pyspec.machine.factory import MachineFactory
+from pyspec.machine.share.s3 import S3Share
 
 from predictor.util.timeit import timeit
 from predictor.util.responses import JsonResponse
@@ -19,6 +20,8 @@ def load_model():
     global clean_dirty_encoder
     global graph
 
+    share = S3Share(read_only=True)
+    share.retrieve("clean_dirty", force=True)
     factory = MachineFactory()
 
     # get model and encoder as configured
@@ -51,7 +54,7 @@ def evaluate_spectra():
         with graph.as_default():
             begin = time()
             try:
-                result = clean_dirty_model.predict_from_spectra(input="dataset/clean_dirty",
+                result = clean_dirty_model.predict_from_spectra(input="datasets/clean_dirty",
                                                                 spectra=Spectra(spectra=spectra),
                                                                 encoder=clean_dirty_encoder)
 
