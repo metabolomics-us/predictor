@@ -5,4 +5,4 @@ flask
 pytest-flask
 WSGIserver
 boto3
-pytest==4.6.0
+pytest==9.0.3
